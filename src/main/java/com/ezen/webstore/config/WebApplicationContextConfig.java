@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.ezen.webstore")
-public class WebApplicationContextConfig extends WebMvcConfigurerAdapter implements WebMvcConfigurer { // Spring 5
+public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*implements WebMvcConfigurer*/ { // Spring 5
 
     @Override
     public void configureDefaultServletHandling(
@@ -27,7 +27,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter impleme
         InternalResourceViewResolver resolver =
                 new InternalResourceViewResolver();
         resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setPrefix("/WEB-INF/");
         resolver.setSuffix(".jsp");
 
         return resolver;
