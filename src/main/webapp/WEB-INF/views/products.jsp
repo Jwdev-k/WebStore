@@ -26,8 +26,8 @@
                     <div class="caption">
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
-                        <p>$${product.unitPrice}</p>
-                        <p>Available ${product.unitsInStock} units in stock</p>
+                        <p>가격: $${product.unitPrice}</p>
+                        <p>재고수량: ${product.unitsInStock} </p>
                     </div>
                 </div>
             </div>
