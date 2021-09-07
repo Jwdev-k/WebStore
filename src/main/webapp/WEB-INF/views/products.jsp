@@ -20,16 +20,18 @@
 
 <section class="container">
     <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div class="caption">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <p>₩${product.unitPriceStr}</p>
-                    <p>제고 수량 : ${product.unitsInStock}</p>
+        <c:forEach items="${products}" var="product">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p>$${product.unitPrice}</p>
+                        <p>Available ${product.unitsInStock} units in stock</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:forEach>
     </div>
 </section>
 </body>
