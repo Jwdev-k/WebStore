@@ -1,6 +1,6 @@
-package com.ezen.webstore.service;
+package com.naka.webstore.service;
 
-import com.ezen.webstore.domain.Customer;
+import com.naka.webstore.domain.Customer;
 
 import java.util.List;
 

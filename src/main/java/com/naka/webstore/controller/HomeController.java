@@ -1,4 +1,4 @@
-package com.ezen.webstore.controller;
+package com.naka.webstore.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.ezen.webstore.config;
+package com.naka.webstore.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("com.ezen.webstore")
+@ComponentScan("com.naka.webstore")
 public class RootApplicationContextConfig {
     @Bean
     public DataSource dataSource() {

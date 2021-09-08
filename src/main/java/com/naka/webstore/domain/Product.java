@@ -1,4 +1,4 @@
-package com.ezen.webstore.domain;
+package com.naka.webstore.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

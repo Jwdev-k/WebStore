@@ -1,4 +1,4 @@
-package com.ezen.webstore.domain;
+package com.naka.webstore.domain;
 
 public class ValueFormat
 {

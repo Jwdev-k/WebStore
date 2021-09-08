@@ -1,7 +1,7 @@
-package com.ezen.webstore.domain.repository.impl;
+package com.naka.webstore.domain.repository.impl;
 
-import com.ezen.webstore.domain.Product;
-import com.ezen.webstore.domain.repository.ProductRepository;
+import com.naka.webstore.domain.Product;
+import com.naka.webstore.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -36,8 +36,32 @@ public class MariaProductRepository implements ProductRepository {
         jdbcTemplate.update(SQL, params);
     }
 
+    public List<Product> getProductsByCategory(String category) {
+        String SQL = "SELECT * FROM PRODUCTS " +
+                "WHERE LCASE(CATEGORY) = :category";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("category", category.toLowerCase());
 
-    private static final class ProductMapper implements RowMapper<Product> {
+        return jdbcTemplate.query(SQL, params, new ProductMapper());
+    }
+
+    public List<Product> getProductsByFilter(
+            Map<String, List<String>> filterParams) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY "
+                + "IN (:categories) AND MANUFACTURER IN (:brands)";
+        return jdbcTemplate.query(SQL, filterParams, new ProductMapper());
+    }
+
+    public Product getProductById(String productID) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", productID);
+
+        return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+    }
+
+
+    public static final class ProductMapper implements RowMapper<Product> {
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
             Product product = new Product();
             product.setProductId(rs.getString("ID"));

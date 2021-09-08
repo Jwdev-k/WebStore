@@ -1,4 +1,4 @@
-package com.ezen.webstore.config;
+package com.naka.webstore.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

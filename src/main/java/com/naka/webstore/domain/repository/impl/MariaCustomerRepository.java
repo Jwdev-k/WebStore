@@ -1,7 +1,7 @@
-package com.ezen.webstore.domain.repository.impl;
+package com.naka.webstore.domain.repository.impl;
 
-import com.ezen.webstore.domain.Customer;
-import com.ezen.webstore.domain.repository.CustomerRepository;
+import com.naka.webstore.domain.Customer;
+import com.naka.webstore.domain.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

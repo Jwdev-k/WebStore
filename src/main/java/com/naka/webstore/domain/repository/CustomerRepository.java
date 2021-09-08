@@ -1,6 +1,6 @@
-package com.ezen.webstore.domain.repository;
+package com.naka.webstore.domain.repository;
 
-import com.ezen.webstore.domain.Customer;
+import com.naka.webstore.domain.Customer;
 
 import java.util.List;
 
