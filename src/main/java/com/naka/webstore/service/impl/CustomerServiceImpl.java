@@ -18,4 +18,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.getAllCustomers();
     }
 
+    public void addCustomer(Customer customer) {
+        customerRepository.addCustomer(customer);
+    }
+
 }

@@ -20,8 +20,7 @@ public class MariaCustomerRepository implements CustomerRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
     public List<Customer> getAllCustomers() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List<Customer> result =
-                jdbcTemplate.query("SELECT * FROM customers",
+        List<Customer> result = jdbcTemplate.query("SELECT * FROM customers",
                         params, new CustomerMapper());
         return result;
     }
@@ -36,6 +35,17 @@ public class MariaCustomerRepository implements CustomerRepository {
             customer.setNoOfOrdersMade(rs.getInt("noOfOrdersMade"));
             return customer;
         }
+    }
+
+    public void addCustomer(Customer customer) {
+        String SQL = "INSERT INTO customers "
+                + "VALUES (:id, :c_name, :address, :noOfOrdersMade)";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", customer.getCustomerId());
+        params.put("c_name", customer.getName());
+        params.put("address", customer.getAddress());
+        params.put("noOfOrdersMade", customer.getNoOfOrdersMade());
+        jdbcTemplate.update(SQL, params);
     }
 }
 
