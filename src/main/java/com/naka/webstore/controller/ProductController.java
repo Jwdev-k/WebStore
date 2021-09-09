@@ -1,14 +1,14 @@
 package com.naka.webstore.controller;
 
+import com.naka.webstore.domain.Product;
 import com.naka.webstore.domain.repository.ProductRepository;
 import com.naka.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -48,13 +48,31 @@ public class ProductController {
         return "views/products";
     }
 
-    @RequestMapping("/product") // 7절 실습
+    @RequestMapping("/product")
     public String getProductById(
             @RequestParam("id") String productId, Model model) {
         model.addAttribute("product",
                 productService.getProductById(productId));
         return "views/product";
     }
+
+    @RequestMapping(value = "/products/add", method = RequestMethod.GET)
+    public String getAddNewProductForm(Model model) {
+        Product newProduct = new Product();
+        model.addAttribute("newProduct", newProduct);
+        return "views/addProduct";
+    }
+
+    @RequestMapping(value = "/products/add", method = RequestMethod.POST)
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result) {
+        String[] suppressedFields = result.getSuppressedFields();
+        if (suppressedFields.length > 0) {
+            throw new RuntimeException("엮어오려는 허용되지 않은 항목 : " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+        }
+        productService.addProduct(newProduct);
+        return "redirect:/market/products";
+    }
+
 
 
 }
