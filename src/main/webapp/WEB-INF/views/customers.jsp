@@ -14,6 +14,7 @@
         <div class="container">
             <h1><spring:message code="customers.form.shopCust.h1"/></h1>
             <p>한번이상 방문한 유저..</p>
+            <p><a href="/webstore">홈으로</a></p>
         </div>
     </div>
 </section>

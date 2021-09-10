@@ -15,6 +15,7 @@
         <div class="container">
             <h1>상품 목록</h1>
             <p>All the available products in our store</p>
+            <p><a href="/webstore">홈으로</a></p>
         </div>
     </div>
 </section>
@@ -24,11 +25,14 @@
         <c:forEach items="${products}" var="product">
             <div class="col-sm-6 col-md-3">
                 <div class="thumbnail">
+                    <img src= "<c:url value='/img/${product.productId}.png'></c:url>"
+                         alt="상품 사진" style = "width:100%"/>
                     <div class="caption">
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
                         <p>가격: $${product.unitPrice}</p>
                         <p>재고수량: ${product.unitsInStock} </p>
+                        <p>상품상태: ${product.condition}</p>
                         <p>
                             <a href="<spring:url
 		                       value='/market/product?id=${product.productId}' /> "

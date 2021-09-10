@@ -13,6 +13,7 @@
         <div class="container">
             <h1><spring:message code="addCustomer.form.topDiv.h1"/></h1>
             <p><spring:message code="addCustomer.form.topDiv.p"/></p>
+            <p><a href="/webstore">홈으로</a></p>
         </div>
     </div>
 </section>

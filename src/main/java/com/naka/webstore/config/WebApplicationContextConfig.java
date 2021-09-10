@@ -48,5 +48,12 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*imple
         resource.setDefaultEncoding("utf-8");
         return resource;
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("/resources/images/");
+    }
+
 }
 
