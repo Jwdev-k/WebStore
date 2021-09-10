@@ -38,7 +38,7 @@
             <p>
                 <strong>재고 수량 </strong> : ${product.unitsInStock}
             </p>
-            <h4>${product.unitPrice}달러</h4>
+            <h4>${product.unitPrice}원</h4>
             <p>
                 <a href="<spring:url value="/market/products" />"
                    class="btn btn-default"> <span

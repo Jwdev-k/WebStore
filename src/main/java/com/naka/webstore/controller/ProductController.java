@@ -10,7 +10,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -65,12 +68,24 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result) {
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result, HttpServletRequest request) {
         String[] suppressedFields = result.getSuppressedFields();
         if (suppressedFields.length > 0) {
             throw new RuntimeException("엮어오려는 허용되지 않은 항목 : " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
         }
         productService.addProduct(newProduct);
+        /**
+         * 상품 영상 메모리 내용 정한 폴더에 파일로 보관
+         */
+        MultipartFile productImage = newProduct.getProductImage();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        if (productImage!=null && !productImage.isEmpty()) {
+            try {
+                productImage.transferTo(new File(rootDirectory+"resources\\images\\" + newProduct.getProductId() + ".png"));
+            } catch (Exception e) {
+                throw new RuntimeException("Product Image saving failed", e);
+            }
+        }
         return "redirect:/market/products";
     }
 
@@ -83,7 +98,8 @@ public class ProductController {
                 "manufacturer",
                 "category",
                 "unitsInStock",
-                "condition");
+                "condition",
+                "productImage");
     }
 
 

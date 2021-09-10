@@ -27,20 +27,17 @@
                 <div class="thumbnail">
                     <img src= "<c:url value='/img/${product.productId}.png'></c:url>"
                          alt="상품 사진" style = "width:100%"/>
-                    <div class="caption">
+                    <div class="caption" >
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
                         <p>가격: $${product.unitPrice}</p>
                         <p>재고수량: ${product.unitsInStock} </p>
                         <p>상품상태: ${product.condition}</p>
-                        <p>
-                            <a href="<spring:url
-		                       value='/market/product?id=${product.productId}' /> "
+                        <p><a href="<spring:url value='/market/product?id=${product.productId}' /> "
                                class="btn btn-primary">
                                 <span class="glyphicon-info-sign glyphicon"/></span>상세정보
                             </a>
                         </p>
-
                     </div>
                 </div>
             </div>
