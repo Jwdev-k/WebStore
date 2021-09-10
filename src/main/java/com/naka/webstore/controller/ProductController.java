@@ -32,7 +32,7 @@ public class ProductController {
     @RequestMapping("/updatestock")
     public String updateStock(Model model) {
         productService.updateAllStock();
-        return "redirect:products";
+        return "redirect:/market/products";
     }
 
     @RequestMapping("/products/{category}")
@@ -71,7 +71,7 @@ public class ProductController {
             throw new RuntimeException("엮어오려는 허용되지 않은 항목 : " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
         }
         productService.addProduct(newProduct);
-        return "redirect:products";
+        return "redirect:/market/products";
     }
 
     @InitBinder
