@@ -79,7 +79,6 @@ public class MariaProductRepository implements ProductRepository {
         return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
     }
 
-
     public void addProduct(Product product) {
         String SQL = "INSERT INTO PRODUCTS "
                 + "VALUES (:id, :prod_name, :description, :price, :manufacturer, :category, :condition, :inStock, :inOrder, :discontinued)";
@@ -97,4 +96,21 @@ public class MariaProductRepository implements ProductRepository {
 
         jdbcTemplate.update(SQL, params);
     }
+
+    public List<Product> getProdsByMultiFilter(String productCategory, Map<String, String> criteria, String brand) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
+                + "AND MANUFACTURER = :brand "
+                + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+        criteria.put("category", productCategory); // **
+        criteria.put("brand", brand);
+        return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+    }
+
+    public List<Product> getProdsByMultiFilter2(String productCategory, Map<String, String> criteria) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
+                + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+        criteria.put("category", productCategory); // **
+        return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+    }
+
 }

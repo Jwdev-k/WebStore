@@ -17,6 +17,7 @@
     <p><a href="market/updatestock">500미만 상품 제고 1000 증가</a></p>
     <p><a href="market/products">상품 목록 보기</a></p>
     <p><a href="market/products/add">상품 추가</a></p>
+    <p><a href="products/Tablet/price;low=200;high=300000?brand=Google">복합조건 검색</a></p>
 </div>
 </body>
 </html>
