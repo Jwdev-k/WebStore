@@ -98,19 +98,34 @@ public class MariaProductRepository implements ProductRepository {
     }
 
     public List<Product> getProdsByMultiFilter(String productCategory, Map<String, String> criteria, String brand) {
-        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
-                + "AND MANUFACTURER = :brand "
-                + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
-        criteria.put("category", productCategory); // **
-        criteria.put("brand", brand);
-        return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+        if (!productCategory.equals("all")) {
+            if (brand != null) {
+                String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
+                        + "AND MANUFACTURER = :brand "
+                        + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+                criteria.put("category", productCategory); // **
+                criteria.put("brand", brand);
+                return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+            } else {
+                String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
+                        + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+                criteria.put("category", productCategory); // **
+                return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+            }
+        } else {
+            if (brand == null) {
+                String SQL = "SELECT * FROM PRODUCTS "
+                        + "WHERE UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+                criteria.put("category", productCategory); // **
+                return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+            } else {
+                String SQL = "SELECT * FROM PRODUCTS "
+                        + "WHERE MANUFACTURER = :brand "
+                        + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
+                criteria.put("category", productCategory); // **
+                criteria.put("brand", brand);
+                return jdbcTemplate.query(SQL, criteria, new ProductMapper());
+            }
+        }
     }
-
-    public List<Product> getProdsByMultiFilter2(String productCategory, Map<String, String> criteria) {
-        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category "
-                + "AND UNIT_PRICE >= :low And UNIT_PRICE <= :high";
-        criteria.put("category", productCategory); // **
-        return jdbcTemplate.query(SQL, criteria, new ProductMapper());
-    }
-
 }

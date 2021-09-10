@@ -17,15 +17,9 @@ public class ProdHeroTroller {
     private ProductService productService;
 
     @RequestMapping("/products/{category}/{price}")
-    public String getProdsByMultiFilter(Model model, @PathVariable("category") String productCategory, @MatrixVariable(pathVar="price") Map<String,String> price, @RequestParam String brand) {
+    public String getProdsByMultiFilter(Model model, @PathVariable("category") String productCategory, @MatrixVariable(pathVar="price") Map<String,String> price, @RequestParam(required = false) String brand) {
         model.addAttribute("products", productService.getProdsByMultiFilter(productCategory, price, brand));
         return "views/products";
     }
-
-//    @RequestMapping("/products/{category2}/{price2}")
-//    public String getProdsByMultiFilter2(Model model, @PathVariable("category2") String productCategory, @MatrixVariable(pathVar="price2") Map<String,String> price) {
-//        model.addAttribute("products", productService.getProdsByMultiFilter2(productCategory, price));
-//        return "views/products";
-//    }
 }
 

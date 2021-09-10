@@ -18,6 +18,7 @@
     <p><a href="market/products">상품 목록 보기</a></p>
     <p><a href="market/products/add">상품 추가</a></p>
     <p><a href="products/Tablet/price;low=200;high=300000?brand=Google">복합조건 검색</a></p>
+    <p><a href="products/all/price;low=200;high=300000?brand=Google">모든 카테고리 조건 검색</a></p>
 </div>
 </body>
 </html>

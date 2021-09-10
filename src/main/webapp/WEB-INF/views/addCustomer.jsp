@@ -5,14 +5,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <title>유저 등록</title>
+    <title><spring:message code="addCustomer.form.custRegi.title"/></title>
 </head>
 <body>
 <section>
     <div class="jumbotron">
         <div class="container">
-            <h1>유저 정보</h1>
-            <p>새 유저 입력</p>
+            <h1><spring:message code="addCustomer.form.topDiv.h1"/></h1>
+            <p><spring:message code="addCustomer.form.topDiv.p"/></p>
         </div>
     </div>
 </section>

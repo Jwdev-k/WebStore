@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,6 +72,18 @@ public class ProductController {
         }
         productService.addProduct(newProduct);
         return "redirect:products";
+    }
+
+    @InitBinder
+    public void initialiseBinder(WebDataBinder binder) {
+        binder.setAllowedFields("productId",
+                "name",
+                "unitPrice",
+                "description",
+                "manufacturer",
+                "category",
+                "unitsInStock",
+                "condition");
     }
 
 

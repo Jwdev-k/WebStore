@@ -23,7 +23,8 @@
             <legend>신상품 정보 입력</legend>
             <div class="form-group">
                 <label class="control-label col-lg-2 col-lg-2" for="productId">
-                    상품 ID	</label>
+                    <spring:message code="addProduct.form.productId.label"/>
+                </label>
                 <div class="col-lg-10">
                     <form:input id="productId" path="productId" type="text" class="form:input-large"/>
                 </div>
@@ -31,7 +32,8 @@
 
             <div class="form-group">
                 <label class="control-label col-lg-2 col-lg-2" for="name">
-                    상품명</label>
+                    <spring:message code="addProduct.form.prodName.label"/>
+                </label>
                 <div class="col-lg-10">
                     <form:input id="name" path="name" type="text" class="form:input-large"/>
                 </div>
@@ -39,7 +41,8 @@
 
             <div class="form-group">
                 <label class="control-label col-lg-2 col-lg-2" for="unitPrice">
-                    단위 가격</label>
+                    <spring:message code="addProduct.form.unitPrice.label"/>
+                </label>
                 <div class="col-lg-10">
                     <form:input id="unitPrice" path="unitPrice" type="text" class="form:input-large"/>
                 </div>
@@ -47,7 +50,8 @@
 
             <div class="form-group">
                 <label class="control-label col-lg-2 col-lg-2" for="manufacturer">
-                    제조사</label>
+                    <spring:message code="addProduct.form.manufacturer.label"/>
+                </label>
                 <div class="col-lg-10">
                     <form:input id="manufacturer" path="manufacturer" type="text" class="form:input-large"/>
                 </div>
