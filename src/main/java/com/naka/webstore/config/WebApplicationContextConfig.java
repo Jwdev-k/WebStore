@@ -54,6 +54,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*imple
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/pdf/**")
+                .addResourceLocations("/resources/pdf/");
     }
 
     @Bean

@@ -86,6 +86,16 @@ public class ProductController {
                 throw new RuntimeException("Product Image saving failed", e);
             }
         }
+        MultipartFile productManual = newProduct.getProductManual();
+        if (productManual!=null && !productManual.isEmpty()) {
+            try {
+                productManual.transferTo(new
+                        File(rootDirectory+"resources\\pdf\\"
+                        + newProduct.getProductId() + ".pdf"));
+            } catch (Exception e) {
+                throw new RuntimeException("상품 설명서 저장 실패", e);
+            }
+        }
         return "redirect:/market/products";
     }
 
@@ -99,7 +109,9 @@ public class ProductController {
                 "category",
                 "unitsInStock",
                 "condition",
-                "productImage");
+                "productImage",
+                "productManual");
+
     }
 
 
