@@ -2,6 +2,7 @@ package com.naka.webstore.controller;
 
 import com.naka.webstore.domain.Product;
 import com.naka.webstore.domain.repository.ProductRepository;
+import com.naka.webstore.exception.ProductNotFoundException;
 import com.naka.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -112,6 +114,16 @@ public class ProductController {
                 "productImage",
                 "productManual");
 
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("invalidProductId", exception.getProductId());
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL()+"?"+req.getQueryString());
+        mav.setViewName("/views/productNotFound");
+        return mav;
     }
 
 

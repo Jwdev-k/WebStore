@@ -2,7 +2,9 @@ package com.naka.webstore.domain.repository.impl;
 
 import com.naka.webstore.domain.Product;
 import com.naka.webstore.domain.repository.ProductRepository;
+import com.naka.webstore.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -24,23 +26,6 @@ public class MariaProductRepository implements ProductRepository {
         List<Product> result = jdbcTemplate.query(
                 "SELECT * FROM products", params, new ProductMapper());
         return result;
-    }
-
-    public static final class ProductMapper implements RowMapper<Product> {
-        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Product product = new Product();
-            product.setProductId(rs.getString("ID"));
-            product.setName(rs.getString("PROD_NAME"));
-            product.setDescription(rs.getString("DESCRIPTION"));
-            product.setUnitPrice(rs.getBigDecimal("UNIT_PRICE"));
-            product.setManufacturer(rs.getString("MANUFACTURER"));
-            product.setCategory(rs.getString("CATEGORY"));
-            product.setCondition(rs.getString("PROD_CONDITION"));
-            product.setUnitsInStock(rs.getLong("UNITS_IN_STOCK"));
-            product.setUnitsInOrder(rs.getLong("UNITS_IN_ORDER"));
-            product.setDiscontinued(rs.getBoolean("DISCONTINUED"));
-            return product;
-        }
     }
 
     public void updateStock(String productId, long noOfUnits) {
@@ -75,8 +60,11 @@ public class MariaProductRepository implements ProductRepository {
         String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", productID);
-
-        return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+        try {
+            return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+        } catch (DataAccessException e) {
+            throw new ProductNotFoundException(productID);
+        }
     }
 
     public void addProduct(Product product) {
@@ -126,6 +114,23 @@ public class MariaProductRepository implements ProductRepository {
                 criteria.put("brand", brand);
                 return jdbcTemplate.query(SQL, criteria, new ProductMapper());
             }
+        }
+    }
+
+    public static final class ProductMapper implements RowMapper<Product> {
+        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Product product = new Product();
+            product.setProductId(rs.getString("ID"));
+            product.setName(rs.getString("PROD_NAME"));
+            product.setDescription(rs.getString("DESCRIPTION"));
+            product.setUnitPrice(rs.getBigDecimal("UNIT_PRICE"));
+            product.setManufacturer(rs.getString("MANUFACTURER"));
+            product.setCategory(rs.getString("CATEGORY"));
+            product.setCondition(rs.getString("PROD_CONDITION"));
+            product.setUnitsInStock(rs.getLong("UNITS_IN_STOCK"));
+            product.setUnitsInOrder(rs.getLong("UNITS_IN_ORDER"));
+            product.setDiscontinued(rs.getBoolean("DISCONTINUED"));
+            return product;
         }
     }
 }
