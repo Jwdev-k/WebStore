@@ -1,11 +1,15 @@
 package com.naka.webstore.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+@XmlRootElement
 public class Product implements Serializable {
 
     private static final long serialVersionUID = -4033210499804782390L;
@@ -21,7 +25,9 @@ public class Product implements Serializable {
     private long unitsInOrder;
     private boolean discontinued;
     private String condition;
+    @JsonIgnore
     private MultipartFile productImage;
+    @JsonIgnore
     private MultipartFile productManual;
 
     public Product() {
@@ -34,6 +40,7 @@ public class Product implements Serializable {
         this.setUnitPrice(unitPrice);
     }
 
+    @XmlTransient
     public MultipartFile getProductImage() {
         return productImage;
     }
@@ -42,6 +49,7 @@ public class Product implements Serializable {
         this.productImage = productImage;
     }
 
+    @XmlTransient
     public MultipartFile getProductManual() {
         return productManual;
     }

@@ -1,7 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%-- <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <head>
     <link rel="stylesheet"
           href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-5">
             <img src="<c:url value='/img/${product.productId}.png'></c:url>"
-                 alt="상품 사진" style="width: 100%" />
+                 alt="상품 사진" style="width: 100%"/>
         </div>
         <div class="col-md-5">
             <h3>${product.name}</h3>
@@ -42,6 +42,8 @@
                 <strong><a href="/webstore/pdf/${product.productId}.pdf">
                     [PDF 다운로드(${product.productId}.pdf)]</a></strong>
             </p>
+            <p><a href="/webstore/market/product.xml?id=${product.productId}">Xml형식으로 보기</a></p>
+            <p><a href="/webstore/market/product.json?id=${product.productId}">Json형식으로 보기</a></p>
             <h4>${product.unitPrice}원</h4>
             <p>
                 <a href="<spring:url value="/market/products" />"
