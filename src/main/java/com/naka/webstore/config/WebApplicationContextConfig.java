@@ -1,6 +1,7 @@
 package com.naka.webstore.config;
 
 import com.naka.webstore.domain.Product;
+import com.naka.webstore.interceptor.ProcessingTimeLogInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -100,5 +101,11 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*imple
         resolver.setDefaultViews(views);
         return resolver;
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ProcessingTimeLogInterceptor());
+    }
+
 }
 
