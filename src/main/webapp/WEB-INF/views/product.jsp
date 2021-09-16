@@ -5,13 +5,19 @@
 <head>
     <link rel="stylesheet"
           href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <title>ID로 찾은 상품</title>
+    <title><spring:message code="product.form.title"/></title>
 </head>
+<section>
+    <div class="pull-right" style="padding-right: 50px">
+        <a href="?id=${product.productId}&language=ko">한글</a>|
+        <a href="?id=${product.productId}&language=en">English</a>
+    </div>
+</section>
 <body>
 <section>
     <div class="jumbotron">
         <div class="container">
-            <h1>상품 검색 결과</h1>
+            <h1><spring:message code="product.form.h1"/></h1>
             <p><a href="/webstore">홈으로</a></p>
         </div>
     </div>
@@ -26,32 +32,32 @@
             <h3>${product.name}</h3>
             <p>${product.description}</p>
             <p>
-                <strong>상품ID : </strong>
+                <strong><spring:message code="product.form.prodID.label"/> : </strong>
                 <span class="label label-warning">${product.productId}</span>
             </p>
             <p>
-                <strong>제조사</strong> : ${product.manufacturer}
+                <strong><spring:message code="addProduct.form.manufacturer.label"/></strong> : ${product.manufacturer}
             </p>
             <p>
-                <strong>상품범주</strong> : ${product.category}
+                <strong><spring:message code="product.form.category"/> </strong> : ${product.category}
             </p>
             <p>
-                <strong>재고 수량 </strong> : ${product.unitsInStock}
+                <strong><spring:message code="product.form.unitsInStock"/> </strong> : ${product.unitsInStock}
             </p>
             <p>
                 <strong><a href="/webstore/pdf/${product.productId}.pdf">
-                    [PDF 다운로드(${product.productId}.pdf)]</a></strong>
+                    <spring:message code="product.form.manual.link"/> (${product.productId}.pdf)]</a></strong>
             </p>
             <p><a href="/webstore/market/product.xml?id=${product.productId}">Xml형식으로 보기</a></p>
             <p><a href="/webstore/market/product.json?id=${product.productId}">Json형식으로 보기</a></p>
-            <h4>${product.unitPrice}원</h4>
+            <h4>${product.unitPrice}<spring:message code="product.form.dollar.h4"/></h4>
             <p>
                 <a href="<spring:url value="/market/products" />"
                    class="btn btn-default"> <span
-                        class="glyphicon-hand-left glyphicon"></span> back
+                        class="glyphicon-hand-left glyphicon"></span> <spring:message code="product.form.goBack.link"/>
                 </a>
                 <a href="#" class="btn btn-warning btn-large"> <span
-                        class="glyphicon-shopping-cart glyphicon"></span>주문하기
+                        class="glyphicon-shopping-cart glyphicon"></span><spring:message code="product.form.putOrder.link"/>
                 </a>
             </p>
         </div>

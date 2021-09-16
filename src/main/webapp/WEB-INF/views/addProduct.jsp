@@ -8,6 +8,11 @@
     <link rel="stylesheet"   href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <title>상품 정보</title>
 </head>
+<section>
+    <div class="pull-right" style="padding-right: 50px">
+        <a href="?language=ko">한글</a>|<a href="?language=en">English</a>
+    </div>
+</section>
 <body>
 <section>
     <div class="jumbotron">
@@ -142,6 +147,5 @@
         </fieldset>
     </form:form>
 </section>
-
 </body>
 </html>
