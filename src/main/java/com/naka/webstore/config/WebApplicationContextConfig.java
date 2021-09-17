@@ -2,6 +2,7 @@ package com.naka.webstore.config;
 
 import com.naka.webstore.domain.Product;
 import com.naka.webstore.interceptor.ProcessingTimeLogInterceptor;
+import com.naka.webstore.interceptor.PromoCodeInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,6 +11,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
@@ -110,10 +112,12 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*imple
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ProcessingTimeLogInterceptor());
 
-        LocaleChangeInterceptor localeChangeInterceptor =
-                new LocaleChangeInterceptor();
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         registry.addInterceptor(localeChangeInterceptor);
+
+        registry.addInterceptor(promoCodeInterceptor()).addPathPatterns("/**/market/products/specialOffer");
+
 
     }
 
@@ -122,6 +126,16 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter /*imple
         SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(new Locale("ko"));
         return resolver;
+    }
+
+    @Bean
+    public HandlerInterceptor promoCodeInterceptor() {
+        PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
+        promoCodeInterceptor.setPromoCode("OFF3R");
+        promoCodeInterceptor.setOfferRedirect("market/products");
+        promoCodeInterceptor.setErrorRedirect("invalidPromoCode");
+
+        return promoCodeInterceptor;
     }
 
 }

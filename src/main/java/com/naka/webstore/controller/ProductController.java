@@ -43,8 +43,12 @@ public class ProductController {
     @RequestMapping("/products/{category}")
     public String getProductsByCategory(Model model, @PathVariable("category") String productCategory) {
 // @PathVariable String category) {
+        var products = productService.getProductsByCategory(productCategory);
+        if (products == null || products.isEmpty()) {
+            System.out.println("0");
+            return null;
+        }
         model.addAttribute("products", productService.getProductsByCategory(productCategory));
-        // productService.getProductsByCategory(category));
         return "views/products";
     }
 
@@ -126,7 +130,10 @@ public class ProductController {
         return mav;
     }
 
-
+    @RequestMapping("/products/invalidPromoCode")
+    public String invalidPromoCode() {
+        return "views/invalidPromoCode";
+    }
 
 }
 
