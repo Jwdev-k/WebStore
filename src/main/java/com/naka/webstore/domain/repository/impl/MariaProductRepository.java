@@ -43,9 +43,6 @@ public class MariaProductRepository implements ProductRepository {
                 "WHERE LCASE(CATEGORY) = :category";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("category", category.toLowerCase());
-        if (params.get(null) == null) {
-            return null;
-        }
         return jdbcTemplate.query(SQL, params, new ProductMapper());
     }
 
@@ -68,7 +65,7 @@ public class MariaProductRepository implements ProductRepository {
     }
 
     public void addProduct(Product product) {
-        String SQL = "INSERT INTO PRODUCTS "
+        String SQL = "INSERT INTO PRODUCTS (ID, PROD_NAME, DESCRIPTION, UNIT_PRICE, MANUFACTURER, CATEGORY, PROD_CONDITION, UNITS_IN_STOCK, UNITS_IN_ORDER, DISCONTINUED)  "
                 + "VALUES (:id, :prod_name, :description, :price, :manufacturer, :category, :condition, :inStock, :inOrder, :discontinued)";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", product.getProductId());
@@ -81,6 +78,8 @@ public class MariaProductRepository implements ProductRepository {
         params.put("inStock", product.getUnitsInStock());
         params.put("inOrder", product.getUnitsInOrder());
         params.put("discontinued", product.isDiscontinued());
+//        params.put("image", product.getProductImage());
+//        params.put("manual", product.getProductManual());
 
         jdbcTemplate.update(SQL, params);
     }
@@ -118,6 +117,8 @@ public class MariaProductRepository implements ProductRepository {
     }
 
     public static final class ProductMapper implements RowMapper<Product> {
+
+        @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
             Product product = new Product();
             product.setProductId(rs.getString("ID"));
